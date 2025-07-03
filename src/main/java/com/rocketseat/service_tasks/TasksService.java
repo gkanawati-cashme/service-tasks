@@ -2,7 +2,9 @@ package com.rocketseat.service_tasks;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TasksService {
 
   private final TasksRepository tasksRepository;
@@ -19,10 +21,14 @@ public class TasksService {
 
     for (TasksEntity task : tasks) {
       NotificationRequest request = new NotificationRequest(
-          "Sua tarefa " + task.getTitle() + " está perto do prazo final!", task.getEmail()
+          "Sua tarefa " + task.getTitle() + " está prestes a vencer!", task.getEmail()
       );
+
+      System.out.println("Enviando notificação para a tarefa: " + task.getTitle());
+
       notificationClient.sendNotification(request);
       task.setNotified(true);
+      tasksRepository.save(task);
     }
   }
 

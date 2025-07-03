@@ -12,7 +12,7 @@ public class TasksNotificationSchedule {
     this.tasksService = tasksService;
   }
 
-  @Scheduled(fixedRate = 1000 * 60 * 60 * 24) // = 86400000ms (24 hours)
+  @Scheduled(fixedRate = 1000)
   public void checkAndNotifyTasks() {
     this.tasksService.sendNotificationForDueTasks();
   }
